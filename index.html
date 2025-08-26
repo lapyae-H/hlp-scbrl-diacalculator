@@ -1,136 +1,252 @@
 <!DOCTYPE html>
-<html lang="my">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>HL Digital Product MM Calculator</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MLBB BRL Coin Table Calculator</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #fff;
-      color: #222;
-      margin: 0;
-      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 6px;
+      max-width: 100%;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      font-size: 11px;
+    }
+    th, td {
+      border: 1px solid #999;
+      padding: 3px;
+      text-align: center;
+    }
+    input, select {
+      padding: 3px;
+      font-size: 12px;
+      margin: 5px 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    #profitSelect {
+      font-size: 10px;
     }
     .container {
-      max-width: 420px;
-      margin: 30px auto;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px #eee;
-      background: #fff;
+      max-width: 100%;
+      overflow-x: auto;
     }
-    .badge {
-      display: inline-block;
-      background: #eee;
-      color: #222;
-      border-radius: 5px;
-      padding: 8px 16px;
-      font-size: 18px;
-      margin-bottom: 20px;
+    .topbar {
+      color: white;
+      padding: 6px;
+      font-size: 14px;
       font-weight: bold;
-      letter-spacing: 1px;
     }
-    h1 {
-      font-size: 2em;
-      margin-bottom: 0.2em;
-      text-align: center;
+    .double-dp {
+      color: white;
+      font-weight: bold;
     }
-    .links {
+
+    /* Themes */
+    body.theme-blue { background-color: #e5f0ff; }
+    body.theme-blue .topbar { background-color: #005ce6; }
+    body.theme-blue th { background-color: #0a63ff; color: white; }
+    body.theme-blue tr:nth-child(even) { background-color: #f2f9ff; }
+    body.theme-blue .double-dp { background-color: #27c400; }
+
+    body.theme-purple { background-color: #f3e8ff; }
+    body.theme-purple .topbar { background-color: #9333ea; }
+    body.theme-purple th { background-color: #a855f7; color: white; }
+    body.theme-purple tr:nth-child(even) { background-color: #f5f3ff; }
+    body.theme-purple .double-dp { background-color: #9333ea; }
+
+    body.theme-green { background-color: #d1fae5; }
+    body.theme-green .topbar { background-color: #059669; }
+    body.theme-green th { background-color: #34d399; color: white; }
+    body.theme-green tr:nth-child(even) { background-color: #ecfdf5; }
+    body.theme-green .double-dp { background-color: #059669; }
+
+    body.theme-pink { background-color: #ffe4e6; }
+    body.theme-pink .topbar { background-color: #f43f5e; }
+    body.theme-pink th { background-color: #fb7185; color: white; }
+    body.theme-pink tr:nth-child(even) { background-color: #fff1f2; }
+    body.theme-pink .double-dp { background-color: #f43f5e; }
+
+    .theme-buttons {
+      margin: 10px 0;
       display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin: 20px 0;
+      gap: 8px;
+      flex-wrap: wrap;
     }
-    .links a {
-      display: block;
-      text-align: center;
-      padding: 10px;
-      border-radius: 6px;
-      background: #f5f5f5;
-      color: #0077b6;
-      text-decoration: none;
-      font-weight: 500;
-      border: 1px solid #e1e1e1;
-      transition: background 0.2s, color 0.2s;
-    }
-    .links a:hover {
-      background: #e9ecef;
-      color: #005f7c;
-    }
-    .calculator {
-      margin: 30px 0;
-      text-align: center;
-    }
-    .calculator input {
-      padding: 8px;
-      margin: 6px 0;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      width: 60%;
-      font-size: 1em;
-    }
-    .calculator button {
-      padding: 8px 20px;
-      border-radius: 5px;
+
+    .theme-buttons button {
+      padding: 6px 12px;
+      font-size: 12px;
       border: none;
-      background: #0077b6;
-      color: #fff;
-      font-size: 1em;
+      border-radius: 5px;
       cursor: pointer;
-      margin-top: 10px;
-      transition: background 0.2s;
+      color: white;
+      font-weight: bold;
     }
-    .calculator button:hover {
-      background: #005f7c;
-    }
-    .result {
-      margin-top: 18px;
-      font-size: 1.2em;
-      color: #333;
-    }
-    @media (max-width: 500px) {
-      .container { padding: 10px; max-width: 100vw; }
-      .calculator input { width: 95%; }
-    }
+
+    .blue { background-color: #0a63ff; }
+    .purple { background-color: #a855f7; }
+    .green { background-color: #34d399; }
+    .pink { background-color: #fb7185; }
   </style>
 </head>
-<body>
+<body class="theme-blue">
+
+  <div class="topbar">JUVIRA – Digital Store မှဝန်ဆောင်မှု့ပေးသည်</div>
+
+  <div class="theme-buttons">
+    <button class="blue" onclick="setTheme('theme-blue')">💙 Blue</button>
+    <button class="purple" onclick="setTheme('theme-purple')">🌸 Sakura</button>
+    <button class="green" onclick="setTheme('theme-green')">🍃 Mint</button>
+    <button class="pink" onclick="setTheme('theme-pink')">🩷 Peach</button>
+  </div>
+
+  <h2 style="font-size: 15px;">💰 MLBB BRL Coin Table Calculator</h2>
+  <label>ကိုယ်ဝယ်ခဲ့တဲ့Smile codeစျေး ထည့်ပါ:</label>
+  <input type="number" id="mmkInput" placeholder="ဥပမာ - 7****" />
+
+  <label>အမြတ် % ရွေးပါ:</label>
+  <select id="profitSelect"></select>
+
   <div class="container">
-    <span class="badge">HL Digital Product</span>
-    <h1>Smile One MM Calculator</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Dia Plan</th>
+          <th>Org Dia Plan</th>
+          <th>Coin Price</th>
+          <th>MMK Result</th>
+          <th>အမြတ်</th>
+          <th>Total MMK</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
 
-    <div class="links">
-      <a href="https://t.me/HLdigitalproduct" target="_blank">ဆက်သွယ်ရန်</a>
-      <a href="https://t.me/HLdigitalproduct" target="_blank">Smile One ဝယ်ယူရန်</a>
-      <a href="https://t.me/HLdigitalproduct" target="_blank">Channel Join မယ်</a>
-      <a href="https://t.me/HLdigitalproduct" target="_blank">Diamond ထည့်မယ်</a>
-    </div>
-
-    <div class="calculator">
-      <label for="amount">ငွေပမာဏ (ကျပ်):</label><br>
-      <input type="number" id="amount" placeholder="ဥပမာ - 5000"><br>
-      <button onclick="calculate()">တွက်မယ်</button>
-      <div class="result" id="result"></div>
-    </div>
-
-    <p style="text-align: center; color: #888; font-size: 0.95em;">
-      Powered by <a href="https://t.me/HLdigitalproduct" style="color: #0077b6;">HL Digital Product</a>
-    </p>
+  <br>
+  <div style="font-size: 12px;">
+    <a href="https://t.me/classic_owner_23" target="_blank">
+      <button style="background-color:#9333ea; color:white; padding:6px 12px; border:none; border-radius:5px; font-size:12px; cursor:pointer;">
+        📞 ဆက်သွယ်ရန် - @classic_owner_23
+      </button>
+    </a>
+    <br><br>
+    <a href="https://t.me/+Kvd-2ulpM9AzMjI1" target="_blank">
+      <button style="background-color:#059669; color:white; padding:6px 12px; border:none; border-radius:5px; font-size:12px; cursor:pointer;">
+        🛒 Smile One ဝယ်ယူရန်
+      </button>
+    </a>
   </div>
 
   <script>
-    function calculate() {
-      const amt = parseInt(document.getElementById('amount').value, 10);
-      if (isNaN(amt) || amt <= 0) {
-        document.getElementById('result').textContent = "ကျေးဇူးပြု၍ မှန်ကန်သော ငွေပမာဏထည့်ပါ။";
-        return;
-      }
-      // Example calculation: 1 diamond = 20 MMK
-      const rate = 20;
-      const diamonds = Math.floor(amt / rate);
-      document.getElementById('result').textContent = `သင်ရနိုင်သော Diamond အရေအတွက်: ${diamonds}`;
+    // Insert 0% to 15% options in 0.5 step
+    const profitSelect = document.getElementById("profitSelect");
+    for (let i = 0; i <= 30; i++) {
+      const val = (i * 0.5).toFixed(1).replace(".0", "");
+      const opt = document.createElement("option");
+      opt.value = val;
+      opt.textContent = val + "%";
+      profitSelect.appendChild(opt);
     }
+
+    const plans = [
+      ['Weekly Pass', '', 76], ['Twilight Pass', '', 402.5], ['86', '78+8', 61.5],
+      ['172', '156+16', 122], ['257', '234+23', 177.5], ['343', '257+86', 239],
+      ['429', '257+172', 299.5], ['514', '257+257', 355], ['600', '514+86', 416.5],
+      ['706', '625+81', 480], ['878', '706+172', 602], ['963', '706+257', 657.5],
+      ['1049', '706+343', 719], ['1135', '706+429', 779.5],
+      ['1412', '706+706', 960], // ✅ Added here
+      ['2195', '1860+335', 1453], ['2901', '2195+706', 1933],
+      ['3688', '3099+589', 2424], ['5532', '4649+883', 3660],
+      ['9288', '7740+1548', 6079], ['50+', '', 39], ['150+', '', 116.9],
+      ['250+', '', 187.5], ['500+', '', 385]
+    ];
+
+    const tbody = document.getElementById('tableBody');
+    const mmkInput = document.getElementById('mmkInput');
+
+    function createTable() {
+      tbody.innerHTML = '';
+      plans.forEach((plan, index) => {
+        const tr = document.createElement('tr');
+        if (plan[0] === '50+') {
+          const td = document.createElement('td');
+          td.colSpan = 7;
+          td.className = 'double-dp';
+          td.textContent = 'Double Dia Plan';
+          const trBreak = document.createElement('tr');
+          trBreak.appendChild(td);
+          tbody.appendChild(trBreak);
+        }
+
+        const mmkResult = document.createElement('td');
+        const profitCell = document.createElement('td');
+        const totalCell = document.createElement('td');
+
+        tr.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${plan[0]}</td>
+          <td>${plan[1]}</td>
+          <td>${plan[2]}</td>
+        `;
+        tr.appendChild(mmkResult);
+        tr.appendChild(profitCell);
+        tr.appendChild(totalCell);
+        tbody.appendChild(tr);
+      });
+    }
+
+    function updateTable() {
+      const mmk = parseFloat(mmkInput.value);
+      const refBRL = 1000;
+      const percent = parseFloat(profitSelect.value);
+      const rows = tbody.querySelectorAll('tr');
+
+      let dataIndex = 0;
+      for (let i = 0; i < rows.length; i++) {
+        const cells = rows[i].children;
+        if (cells.length < 7) continue;
+
+        const coinPrice = parseFloat(plans[dataIndex][2]);
+        const mmkValue = ((mmk / refBRL) * coinPrice).toFixed(2);
+        const profit = (mmkValue * percent / 100).toFixed(2);
+        const total = (parseFloat(mmkValue) + parseFloat(profit)).toFixed(2);
+
+        cells[4].textContent = mmk ? mmkValue : '-';
+        cells[5].textContent = mmk ? profit : '-';
+        cells[6].textContent = mmk ? total : '-';
+
+        dataIndex++;
+      }
+    }
+
+    function setTheme(themeName) {
+      document.body.className = themeName;
+    }
+
+    mmkInput.addEventListener('input', updateTable);
+    profitSelect.addEventListener('change', updateTable);
+    createTable();
   </script>
 </body>
 </html>
+<br><br>
+<div style="display:flex; gap:6px; flex-wrap:wrap;">
+  <a href="https://t.me/Juvira_Digital_Store" target="_blank" style="flex:1;">
+    <button style="background-color:#0a63ff; color:white; padding:6px 12px; border:none; border-radius:5px; font-size:12px; cursor:pointer; width:100%;">
+      📢 Channel Join မယ်
+    </button>
+  </a>
+  <a href="https://t.me/Juvira_Topu" target="_blank" style="flex:1;">
+    <button style="background-color:#34d399; color:white; padding:6px 12px; border:none; border-radius:5px; font-size:12px; cursor:pointer; width:100%;">
+      💎 Diamond ထည့်မယ်
+    </button>
+  </a>
+</div>
