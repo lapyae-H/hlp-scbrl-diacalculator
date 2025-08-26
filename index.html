@@ -10,17 +10,27 @@
       padding: 6px;
       max-width: 100%;
       overflow-x: auto;
+      background-color: #181a20 !important;
+      color: #f4f4f4 !important;
     }
     table {
       width: 100%;
       border-collapse: collapse;
-      background: white;
+      background: #23272f;
       font-size: 11px;
+      color: #f4f4f4;
     }
     th, td {
-      border: 1px solid #999;
+      border: 1px solid #444;
       padding: 3px;
       text-align: center;
+    }
+    th {
+      background-color: #23272f;
+      color: #f1c40f;
+    }
+    tr:nth-child(even) {
+      background-color: #20242b;
     }
     input, select {
       padding: 3px;
@@ -28,6 +38,10 @@
       margin: 5px 0;
       width: 100%;
       box-sizing: border-box;
+      background: #181a20;
+      color: #fff;
+      border: 1px solid #484848;
+      border-radius: 3px;
     }
     #profitSelect {
       font-size: 10px;
@@ -37,77 +51,83 @@
       overflow-x: auto;
     }
     .topbar {
-      color: white;
+      background: #23272f;
+      color: #f1c40f;
       padding: 6px;
       font-size: 14px;
       font-weight: bold;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      text-align: center;
+      letter-spacing: 1px;
     }
     .double-dp {
-      color: white;
+      color: #23272f;
+      background: #f1c40f;
       font-weight: bold;
     }
 
-    /* Themes */
-    body.theme-blue { background-color: #e5f0ff; }
-    body.theme-blue .topbar { background-color: #005ce6; }
-    body.theme-blue th { background-color: #0a63ff; color: white; }
-    body.theme-blue tr:nth-child(even) { background-color: #f2f9ff; }
-    body.theme-blue .double-dp { background-color: #27c400; }
-
-    body.theme-purple { background-color: #f3e8ff; }
-    body.theme-purple .topbar { background-color: #9333ea; }
-    body.theme-purple th { background-color: #a855f7; color: white; }
-    body.theme-purple tr:nth-child(even) { background-color: #f5f3ff; }
-    body.theme-purple .double-dp { background-color: #9333ea; }
-
-    body.theme-green { background-color: #d1fae5; }
-    body.theme-green .topbar { background-color: #059669; }
-    body.theme-green th { background-color: #34d399; color: white; }
-    body.theme-green tr:nth-child(even) { background-color: #ecfdf5; }
-    body.theme-green .double-dp { background-color: #059669; }
-
-    body.theme-pink { background-color: #ffe4e6; }
-    body.theme-pink .topbar { background-color: #f43f5e; }
-    body.theme-pink th { background-color: #fb7185; color: white; }
-    body.theme-pink tr:nth-child(even) { background-color: #fff1f2; }
-    body.theme-pink .double-dp { background-color: #f43f5e; }
-
+    /* Remove theme buttons since custom theme is now dark */
     .theme-buttons {
-      margin: 10px 0;
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
+      display: none;
     }
 
-    .theme-buttons button {
+    /* Button Styles */
+    .custom-btn {
+      color: #181a20;
       padding: 6px 12px;
-      font-size: 12px;
       border: none;
       border-radius: 5px;
+      font-size: 12px;
       cursor: pointer;
-      color: white;
       font-weight: bold;
+      width: 100%;
+      margin-bottom: 6px;
+      background-color: #f1c40f;
+      transition: background 0.2s, color 0.2s;
+    }
+    .custom-btn:hover {
+      background-color: #f1c40fcc;
+      color: #23272f;
+    }
+    .custom-btn-secondary {
+      background-color: #23272f;
+      color: #f1c40f;
+      border: 1px solid #f1c40f;
+    }
+    .custom-btn-secondary:hover {
+      background-color: #181a20;
+      color: #fff;
+    }
+    .custom-btn-green {
+      background-color: #34d399;
+      color: #181a20;
+    }
+    .custom-btn-green:hover {
+      background-color: #059669;
+      color: #fff;
+    }
+    .custom-btn-blue {
+      background-color: #58a6ff;
+      color: #181a20;
+    }
+    .custom-btn-blue:hover {
+      background-color: #0a63ff;
+      color: #fff;
     }
 
-    .blue { background-color: #0a63ff; }
-    .purple { background-color: #a855f7; }
-    .green { background-color: #34d399; }
-    .pink { background-color: #fb7185; }
+    @media (max-width: 600px) {
+      table, th, td { font-size: 10px; }
+    }
   </style>
 </head>
-<body class="theme-blue">
+<body>
+  <div class="topbar">HL Digital Product</div>
 
-  <div class="topbar">HL Digital Product မှဝန်ဆောင်မှု့ပေးသည်</div>
+  <!-- Theme buttons removed -->
 
-  <div class="theme-buttons">
-    <button class="blue" onclick="setTheme('theme-blue')">💙 Blue</button>
-    <button class="purple" onclick="setTheme('theme-purple')">🌸 Sakura</button>
-    <button class="green" onclick="setTheme('theme-green')">🍃 Mint</button>
-    <button class="pink" onclick="setTheme('theme-pink')">🩷 Peach</button>
-  </div>
-
-  <h2 style="font-size: 15px;">💰 MLBB BRL Coin Table Calculator</h2>
-  <label>ကိုယ်ဝယ်ခဲ့တဲ့Smile 1k codeစျေး ထည့်ပါ:</label>
+  <h2 style="font-size: 15px; color: #f1c40f;">💰 MLBB BRL Coin Table Calculator</h2>
+  <label>ကိုယ်ဝယ်ခဲ့တဲ့Smile codeစျေး ထည့်ပါ:</label>
   <input type="number" id="mmkInput" placeholder="ဥပမာ - 7****" />
 
   <label>အမြတ် % ရွေးပါ:</label>
@@ -133,14 +153,28 @@
   <br>
   <div style="font-size: 12px;">
     <a href="https://t.me/HLdigitalproduct" target="_blank">
-      <button style="background-color:#000000; color:white; padding:6px 12px; border:none; border-radius:5px; font-size:12px; cursor:pointer;">
-        📞 ဆက်သွယ်ရန်
+      <button class="custom-btn">
+        📞 ဆက်သွယ်ရန် - @HLdigitalproduct
       </button>
     </a>
-    <br><br>
+    <br>
     <a href="https://t.me/HLdigitalproduct" target="_blank">
-      <button style="background-color:#000000; color:white; padding:6px 12px; border:none; border-radius:5px; font-size:12px; cursor:pointer;">
+      <button class="custom-btn-green">
         🛒 Smile One ဝယ်ယူရန်
+      </button>
+    </a>
+  </div>
+
+  <br>
+  <div style="display:flex; gap:6px; flex-wrap:wrap;">
+    <a href="https://t.me/HLdigitalproduct" target="_blank" style="flex:1;">
+      <button class="custom-btn-blue">
+        📢 Channel Join မယ်
+      </button>
+    </a>
+    <a href="https://t.me/HLdigitalproduct" target="_blank" style="flex:1;">
+      <button class="custom-btn-green">
+        💎 Diamond ထည့်မယ်
       </button>
     </a>
   </div>
@@ -227,9 +261,10 @@
       }
     }
 
-    function setTheme(themeName) {
-      document.body.className = themeName;
-    }
+    // Remove theme switch
+    // function setTheme(themeName) {
+    //   document.body.className = themeName;
+    // }
 
     mmkInput.addEventListener('input', updateTable);
     profitSelect.addEventListener('change', updateTable);
@@ -237,16 +272,3 @@
   </script>
 </body>
 </html>
-<br><br>
-<div style="display:flex; gap:6px; flex-wrap:wrap;">
-  <a href="https://t.me/HLdigitalproduct" target="_blank" style="flex:1;">
-    <button style="background-color:#000000; color:white; padding:6px 12px; border:none; border-radius:5px; font-size:12px; cursor:pointer; width:100%;">
-      📢 Channel Join မယ်
-    </button>
-  </a>
-  <a href="https://t.me/HLdigitalproduct" target="_blank" style="flex:1;">
-    <button style="background-color:#000000; color:white; padding:6px 12px; border:none; border-radius:5px; font-size:12px; cursor:pointer; width:100%;">
-      💎 Diamond ထည့်မယ်
-    </button>
-  </a>
-</div>
