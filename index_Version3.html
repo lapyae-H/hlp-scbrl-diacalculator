@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MLBB BRL Coin Table Calculator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 6px;
+      max-width: 100%;
+      overflow-x: auto;
+      background-color: #181a20 !important;
+      color: #f4f4f4 !important;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #23272f;
+      font-size: 11px;
+      color: #f4f4f4;
+    }
+    th, td {
+      border: 1px solid #444;
+      padding: 3px;
+      text-align: center;
+    }
+    th {
+      background-color: #23272f;
+      color: #f1c40f;
+    }
+    tr:nth-child(even) {
+      background-color: #20242b;
+    }
+    input, select {
+      padding: 3px;
+      font-size: 12px;
+      margin: 5px 0;
+      width: 100%;
+      box-sizing: border-box;
+      background: #181a20;
+      color: #fff;
+      border: 1px solid #484848;
+      border-radius: 3px;
+    }
+    #profitSelect {
+      font-size: 10px;
+    }
+    .container {
+      max-width: 100%;
+      overflow-x: auto;
+    }
+    .topbar {
+      background: #23272f;
+      color: #f1c40f;
+      padding: 6px;
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+    .double-dp {
+      color: #23272f;
+      background: #f1c40f;
+      font-weight: bold;
+    }
+
+    /* Remove theme buttons since custom theme is now dark */
+    .theme-buttons {
+      display: none;
+    }
+
+    /* Button Styles */
+    .custom-btn {
+      color: #181a20;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 5px;
+      font-size: 12px;
+      cursor: pointer;
+      font-weight: bold;
+      width: 100%;
+      margin-bottom: 6px;
+      background-color: #f1c40f;
+      transition: background 0.2s, color 0.2s;
+    }
+    .custom-btn:hover {
+      background-color: #f1c40fcc;
+      color: #23272f;
+    }
+    .custom-btn-secondary {
+      background-color: #23272f;
+      color: #f1c40f;
+      border: 1px solid #f1c40f;
+    }
+    .custom-btn-secondary:hover {
+      background-color: #181a20;
+      color: #fff;
+    }
+    .custom-btn-green {
+      background-color: #34d399;
+      color: #181a20;
+    }
+    .custom-btn-green:hover {
+      background-color: #059669;
+      color: #fff;
+    }
+    .custom-btn-blue {
+      background-color: #58a6ff;
+      color: #181a20;
+    }
+    .custom-btn-blue:hover {
+      background-color: #0a63ff;
+      color: #fff;
+    }
+
+    @media (max-width: 600px) {
+      table, th, td { font-size: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">HL Digital Product</div>
+
+  <!-- Theme buttons removed -->
+
+  <h2 style="font-size: 15px; color: #f1c40f;">💰 MLBB BRL Coin Table Calculator</h2>
+  <label>ကိုယ်ဝယ်ခဲ့တဲ့Smile codeစျေး ထည့်ပါ:</label>
+  <input type="number" id="mmkInput" placeholder="ဥပမာ - 7****" />
+
+  <label>အမြတ် % ရွေးပါ:</label>
+  <select id="profitSelect"></select>
+
+  <div class="container">
+    <table>
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Dia Plan</th>
+          <th>Org Dia Plan</th>
+          <th>Coin Price</th>
+          <th>MMK Result</th>
+          <th>အမြတ်</th>
+          <th>Total MMK</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+  <br>
+  <div style="font-size: 12px;">
+    <a href="https://t.me/HLdigitalproduct" target="_blank">
+      <button class="custom-btn">
+        📞 ဆက်သွယ်ရန် - @HLdigitalproduct
+      </button>
+    </a>
+    <br>
+    <a href="https://t.me/HLdigitalproduct" target="_blank">
+      <button class="custom-btn-green">
+        🛒 Smile One ဝယ်ယူရန်
+      </button>
+    </a>
+  </div>
+
+  <br>
+  <div style="display:flex; gap:6px; flex-wrap:wrap;">
+    <a href="https://t.me/HLdigitalproduct" target="_blank" style="flex:1;">
+      <button class="custom-btn-blue">
+        📢 Channel Join မယ်
+      </button>
+    </a>
+    <a href="https://t.me/HLdigitalproduct" target="_blank" style="flex:1;">
+      <button class="custom-btn-green">
+        💎 Diamond ထည့်မယ်
+      </button>
+    </a>
+  </div>
+
+  <script>
+    // Insert 0% to 15% options in 0.5 step
+    const profitSelect = document.getElementById("profitSelect");
+    for (let i = 0; i <= 30; i++) {
+      const val = (i * 0.5).toFixed(1).replace(".0", "");
+      const opt = document.createElement("option");
+      opt.value = val;
+      opt.textContent = val + "%";
+      profitSelect.appendChild(opt);
+    }
+
+    const plans = [
+      ['Weekly Pass', '', 76], ['Twilight Pass', '', 402.5], ['86', '78+8', 61.5],
+      ['172', '156+16', 122], ['257', '234+23', 177.5], ['343', '257+86', 239],
+      ['429', '257+172', 299.5], ['514', '257+257', 355], ['600', '514+86', 416.5],
+      ['706', '625+81', 480], ['878', '706+172', 602], ['963', '706+257', 657.5],
+      ['1049', '706+343', 719], ['1135', '706+429', 779.5],
+      ['1412', '706+706', 960], // ✅ Added here
+      ['2195', '1860+335', 1453], ['2901', '2195+706', 1933],
+      ['3688', '3099+589', 2424], ['5532', '4649+883', 3660],
+      ['9288', '7740+1548', 6079], ['50+', '', 39], ['150+', '', 116.9],
+      ['250+', '', 187.5], ['500+', '', 385]
+    ];
+
+    const tbody = document.getElementById('tableBody');
+    const mmkInput = document.getElementById('mmkInput');
+
+    function createTable() {
+      tbody.innerHTML = '';
+      plans.forEach((plan, index) => {
+        const tr = document.createElement('tr');
+        if (plan[0] === '50+') {
+          const td = document.createElement('td');
+          td.colSpan = 7;
+          td.className = 'double-dp';
+          td.textContent = 'Double Dia Plan';
+          const trBreak = document.createElement('tr');
+          trBreak.appendChild(td);
+          tbody.appendChild(trBreak);
+        }
+
+        const mmkResult = document.createElement('td');
+        const profitCell = document.createElement('td');
+        const totalCell = document.createElement('td');
+
+        tr.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${plan[0]}</td>
+          <td>${plan[1]}</td>
+          <td>${plan[2]}</td>
+        `;
+        tr.appendChild(mmkResult);
+        tr.appendChild(profitCell);
+        tr.appendChild(totalCell);
+        tbody.appendChild(tr);
+      });
+    }
+
+    function updateTable() {
+      const mmk = parseFloat(mmkInput.value);
+      const refBRL = 1000;
+      const percent = parseFloat(profitSelect.value);
+      const rows = tbody.querySelectorAll('tr');
+
+      let dataIndex = 0;
+      for (let i = 0; i < rows.length; i++) {
+        const cells = rows[i].children;
+        if (cells.length < 7) continue;
+
+        const coinPrice = parseFloat(plans[dataIndex][2]);
+        const mmkValue = ((mmk / refBRL) * coinPrice).toFixed(2);
+        const profit = (mmkValue * percent / 100).toFixed(2);
+        const total = (parseFloat(mmkValue) + parseFloat(profit)).toFixed(2);
+
+        cells[4].textContent = mmk ? mmkValue : '-';
+        cells[5].textContent = mmk ? profit : '-';
+        cells[6].textContent = mmk ? total : '-';
+
+        dataIndex++;
+      }
+    }
+
+    // Remove theme switch
+    // function setTheme(themeName) {
+    //   document.body.className = themeName;
+    // }
+
+    mmkInput.addEventListener('input', updateTable);
+    profitSelect.addEventListener('change', updateTable);
+    createTable();
+  </script>
+</body>
+</html>
